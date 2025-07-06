@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="todo.css">
+</head>
+<body>
+  <!-- Container for the To-Do List -->
+<div class="container">
+  <!-- Heading for the To-Do List -->
+  <h1>To-Do List</h1>
+  <!-- Input field for entering tasks -->
+  <input type="text" id="taskInput" placeholder="Enter your task" maxlength="40">
+  <!-- Button to add tasks -->
+  <button onclick="addTask()">Add Task</button>
+  <!-- List to display tasks -->
+  <ul id="taskList">
+  </ul>
+</div>
+
+  <script>
+    // Function to add a new task to the list
+function addTask() {
+  // Select the input field for entering tasks and assign it to a variable
+  var taskInput = document.getElementById("taskInput");
+  // Select the task list container and assign it to a variable
+  var taskList = document.getElementById("taskList");
+
+  if (taskInput.value === "") {
+    alert("Please enter a task!");
+    return;
+  }
+
+  // Create a list item element
+  var li = document.createElement("li");
+
+  // Create a span element to hold the task text
+  var taskText = document.createElement("span");
+  taskText.textContent = taskInput.value;
+  li.appendChild(taskText);
+
+  // Create edit button
+  var editBtn = document.createElement("button");
+  editBtn.textContent = "Edit";
+  editBtn.className = "edit-btn";
+  editBtn.onclick = function() {
+    // Prompt the user to enter new task text
+      var newText = prompt("Enter new task text:", taskText.textContent);
+      // Check if the user entered a new text and it's not empty
+      if (newText !== null && newText.trim() !== "") {
+        // Update the task text with the new text
+        taskText.textContent = newText;
+      }
+    };
+  li.appendChild(editBtn);
+
+  // Create delete button
+  var deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "Delete";
+  deleteBtn.className = "delete-btn";
+  deleteBtn.onclick = function() {
+    // Remove the list item from the task list
+    taskList.removeChild(li);
+  };
+  li.appendChild(deleteBtn);
+
+  // Append the buttons container to the list item
+  taskList.appendChild(li);
+
+  // Clear the input field
+  taskInput.value = "";
+}
+  </script>
+</body>
+</html>
